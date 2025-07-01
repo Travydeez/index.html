@@ -854,7 +854,9 @@
             snowPile.className = 'snow-pile-flake';
             snowPile.style.position = 'absolute';
             snowPile.style.bottom = '0';
-            snowPile.style.left = x + 'px';
+            // Convert x (viewport px) to % of window width for correct placement
+            const leftPercent = Math.max(0, Math.min(100, (x / window.innerWidth) * 100));
+            snowPile.style.left = leftPercent + '%';
             snowPile.style.width = '22px';
             snowPile.style.height = '22px';
             snowPile.style.fontSize = '20px';
@@ -863,7 +865,7 @@
             snowPile.style.pointerEvents = 'none';
             snowPile.style.zIndex = '998';
             snowPile.style.transform = 'translateY(0) scale(1)';
-            snowPile.style.transition = 'transform 0.3s cubic-bezier(.4,0,.2,1)';
+            snowPile.style.transition = 'transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s';
             // Use the same snowflake characters as falling snow
             const snowflakes = ['❄', '❅', '❆', '•', '·'];
             snowPile.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
@@ -878,39 +880,52 @@
                 snowPile.style.transform = 'translateY(-' + (Math.random() * 10 + 2) + 'px) scale(1)';
             }, 10);
         }
-        function startSnorting() {
-            if (snortTimer) {
-                clearTimeout(snortTimer);
-            }
-            snortTimer = setTimeout(() => {
-                // 20% chance to snort
-                if (Math.random() < 0.2) {
-                    snortSnow();
-                }
-                // Continue the cycle if there are still snow piles
-                if (snowPiles.length > 0) {
-                    startSnorting();
-                }
-            }, 10000); // Check every 10 seconds
-        }
+
+        // Animate the Groucho nose sweeping across the bottom and snorting up the snow
         function snortSnow() {
-            // Remove all snow piles with a snorting animation
-            snowPiles.forEach((pile, index) => {
-                setTimeout(() => {
-                    if (pile && pile.parentNode) {
-                        pile.style.transition = 'all 0.8s ease-out';
-                        pile.style.transform = 'translateY(-100px) scale(0.5) rotate(360deg)';
+            const nose = document.querySelector('.groucho-nose');
+            if (!nose) return;
+            // Bring nose to front
+            nose.style.zIndex = 2000;
+            // Start at right edge
+            nose.style.transition = 'none';
+            nose.style.right = '20px';
+            nose.style.bottom = '20px';
+            nose.style.transform = 'translateX(0)';
+            // Animate nose moving left
+            setTimeout(() => {
+                nose.style.transition = 'transform 1.5s linear';
+                nose.style.transform = `translateX(-${window.innerWidth - 120}px)`;
+            }, 50);
+            // As nose moves, snort up flakes as it passes
+            const noseWidth = 80;
+            const noseSweepDuration = 1500;
+            const startTime = performance.now();
+            function sweep() {
+                const now = performance.now();
+                const progress = Math.min(1, (now - startTime) / noseSweepDuration);
+                const noseLeft = window.innerWidth - 20 - noseWidth - (window.innerWidth - 120) * progress;
+                snowPiles.forEach((pile, i) => {
+                    if (!pile._snorted && pile.offsetLeft < noseLeft + noseWidth && pile.offsetLeft + pile.offsetWidth > noseLeft) {
+                        pile._snorted = true;
                         pile.style.opacity = '0';
+                        pile.style.transform += ' scale(0.5)';
                         setTimeout(() => {
-                            if (pile.parentNode) {
-                                pile.parentNode.removeChild(pile);
-                            }
-                        }, 800);
+                            if (pile.parentNode) pile.parentNode.removeChild(pile);
+                        }, 400);
                     }
-                }, index * 50); // Stagger the removal
-            });
-            // Clear the array
-            snowPiles = [];
+                });
+                if (progress < 1) {
+                    requestAnimationFrame(sweep);
+                } else {
+                    // Reset nose position
+                    nose.style.transition = 'none';
+                    nose.style.transform = 'translateX(0)';
+                    // Remove all snorted piles from array
+                    snowPiles = snowPiles.filter(pile => pile.parentNode);
+                }
+            }
+            requestAnimationFrame(sweep);
         }
     </script>
     <script src="script.js"></script>
