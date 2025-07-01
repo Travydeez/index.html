@@ -35,3 +35,27 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+document.addEventListener('DOMContentLoaded', function() {
+  const miniTitle = document.getElementById('mini-title');
+  if (miniTitle) {
+    miniTitle.style.cursor = 'pointer';
+    miniTitle.addEventListener('click', function() {
+      // Remove all animation classes
+      miniTitle.classList.remove('mini-shrink', 'mini-wiggle', 'mini-pop');
+      // Start shrink
+      miniTitle.classList.add('mini-shrink');
+      setTimeout(() => {
+        miniTitle.classList.remove('mini-shrink');
+        miniTitle.classList.add('mini-wiggle');
+        setTimeout(() => {
+          miniTitle.classList.remove('mini-wiggle');
+          miniTitle.classList.add('mini-pop');
+          setTimeout(() => {
+            miniTitle.classList.remove('mini-pop');
+          }, 400);
+        }, 2000);
+      }, 2000);
+    });
+  }
+});

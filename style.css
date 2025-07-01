@@ -195,4 +195,36 @@ header {
   letter-spacing: 1px;
 }
 
+/* MINI Title Animations */
+@keyframes mini-shrink {
+  0% { transform: scale(1); }
+  100% { transform: scale(0.25); }
+}
+@keyframes mini-wiggle {
+  0%, 100% { transform: scale(0.25) rotate(0deg); }
+  10% { transform: scale(0.25) rotate(-10deg); }
+  20% { transform: scale(0.25) rotate(10deg); }
+  30% { transform: scale(0.25) rotate(-10deg); }
+  40% { transform: scale(0.25) rotate(10deg); }
+  50% { transform: scale(0.25) rotate(-10deg); }
+  60% { transform: scale(0.25) rotate(10deg); }
+  70% { transform: scale(0.25) rotate(-10deg); }
+  80% { transform: scale(0.25) rotate(10deg); }
+  90% { transform: scale(0.25) rotate(-10deg); }
+}
+@keyframes mini-pop {
+  0% { transform: scale(0.25); }
+  100% { transform: scale(1); }
+}
+
+.mini-shrink {
+  animation: mini-shrink 2s forwards;
+}
+.mini-wiggle {
+  animation: mini-wiggle 2s forwards;
+}
+.mini-pop {
+  animation: mini-pop 0.4s forwards;
+}
+
 /* Make this look like a clean absurdist brand site with a tiny tote mascot. */
