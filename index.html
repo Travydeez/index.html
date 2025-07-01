@@ -914,9 +914,6 @@
         function snortSnow() {
             const nose = document.getElementById('nose');
             
-            // Play sniff sound
-            playSniffSound();
-            
             // Trigger nose animation
             nose.style.animation = 'none';
             setTimeout(() => {
@@ -965,26 +962,6 @@
                 });
                 snowPiles = [];
             }
-        }
-
-        function playSniffSound() {
-            // Create audio context for sniff sound
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            // Create sniff-like sound
-            oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.3);
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.3);
         }
 
         // Start the snort cycle
