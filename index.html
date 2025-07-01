@@ -41,12 +41,13 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            margin: 0 auto 18px auto;
-            max-width: 420px;
+            margin: 0 auto 24px auto;
+            max-width: 700px;
         }
         .logo-image {
             width: 100%;
-            max-width: 420px;
+            max-width: 700px;
+            min-width: 320px;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -58,12 +59,13 @@
             transform: scale(1.07) rotate(-2deg) translateY(-6px);
             filter: brightness(1.08) drop-shadow(0 0 12px #ffeb3b);
         }
-        @media (max-width: 600px) {
+        @media (max-width: 900px) {
             .logo-image-container {
-                max-width: 90vw;
+                max-width: 98vw;
             }
             .logo-image {
-                max-width: 90vw;
+                max-width: 98vw;
+                min-width: 0;
             }
         }
         .tagline {
@@ -533,6 +535,7 @@
         <nav class="tabs">
             <button class="tab-button active" onclick="showTab('bio')">Bio</button>
             <button class="tab-button" onclick="showTab('products')">Products</button>
+            <button class="tab-button" onclick="showTab('spoon')">Design your own spoon</button>
         </nav>
 
         <!-- Tab Content -->
@@ -613,6 +616,14 @@
                 </div>
                 <p>Quantum Totes - Exists in multiple sizes simultaneously!</p>
                 <a href="#" class="cta-button">PRE-ORDER THE QUANTUM SOLUTION!</a>
+            </section>
+        </div>
+
+        <!-- Design Your Own Spoon Tab Content -->
+        <div id="spoon" class="tab-content">
+            <section class="hero">
+                <h1>DESIGN YOUR OWN SPOON</h1>
+                <p>Coming soon.</p>
             </section>
         </div>
     </div>
