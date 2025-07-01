@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiny Totes™</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Righteous:wght@400&family=Archivo+Black:wght@400&family=Anton:wght@400&family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -35,66 +36,48 @@
             padding: 40px 0;
         }
 
-        .logo {
-            font-family: 'Bangers', 'Comic Neue', sans-serif;
-            font-size: 4rem;
-            font-weight: 900;
-            color: #000;
-            text-shadow: 4px 4px 0px #ffeb3b, 8px 8px 0px #ffc107;
-            margin-bottom: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            -webkit-text-stroke: 2px #000;
-            cursor: pointer;
-            position: relative;
-            transition: transform 0.2s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .logo {
+        .logo-image-container {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
-            position: relative;
+            align-items: center;
+            width: 100%;
+            margin: 0 auto 18px auto;
+            max-width: 420px;
         }
-
-        .logo span {
-            position: relative;
-            display: inline-block;
-            color: #000;
-            font-family: 'Fredoka One', 'Arial Black', sans-serif;
-            font-weight: 900;
-            font-size: 6rem;
-            margin: 0 2px;
-            transition: transform 0.2s ease;
+        .logo-image {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 24px;
+            box-shadow: 0 4px 32px 0 rgba(34,34,34,0.10);
+            transition: transform 0.25s cubic-bezier(.4,0,.2,1);
         }
-
-        .logo span::before {
-            content: attr(data-letter);
-            position: absolute;
-            top: 0;
-            left: 0;
-            color: #ffeb3b;
-            clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
-            z-index: 1;
+        .logo-image-container:hover .logo-image, .logo-image-container:active .logo-image {
+            transform: scale(1.07) rotate(-2deg) translateY(-6px);
+            filter: brightness(1.08) drop-shadow(0 0 12px #ffeb3b);
         }
-
-        .logo span:hover {
-            transform: translateY(-2px);
+        @media (max-width: 600px) {
+            .logo-image-container {
+                max-width: 90vw;
+            }
+            .logo-image {
+                max-width: 90vw;
+            }
         }
-
         .tagline {
-            font-family: 'Righteous', 'Arial Black', sans-serif;
-            font-size: 1.4rem;
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 1.6rem;
             color: #333;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             -webkit-text-stroke: 1px #000;
+            margin-bottom: 12px;
+        }
+        .hero h1, .feature-card h3, .absurd-section h2 {
+            font-family: 'Luckiest Guy', cursive;
         }
 
         .hero {
@@ -353,17 +336,6 @@
         }
 
         @media (max-width: 768px) {
-            .logo {
-                font-size: 3.5rem;
-                letter-spacing: 2px;
-                gap: 4px;
-            }
-
-            .logo span {
-                font-size: 3.5rem;
-                margin: 0 1px;
-            }
-
             .hero h1 {
                 font-size: 3rem;
                 letter-spacing: 2px;
@@ -551,18 +523,8 @@
     <div class="snow-pile" id="snowPile"></div>
     <div class="container">
         <header>
-            <div class="logo" onclick="createSnowfall()">
-                <span data-letter="T">T</span>
-                <span data-letter="I">I</span>
-                <span data-letter="N">N</span>
-                <span data-letter="Y">Y</span>
-                <span data-letter=" ">&nbsp;</span>
-                <span data-letter="T">T</span>
-                <span data-letter="O">O</span>
-                <span data-letter="T">T</span>
-                <span data-letter="E">E</span>
-                <span data-letter="S">S</span>
-                <span data-letter="™">™</span>
+            <div class="logo-image-container" onclick="createSnowfall()">
+                <img src="assets/Tiny Totes v13.png" alt="Tiny Totes Logo" class="logo-image" />
             </div>
             <div class="tagline">Because Your Containers Are Too Big</div>
         </header>
