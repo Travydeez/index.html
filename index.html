@@ -339,6 +339,96 @@
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
         }
 
+        /* Groucho Marx Nose Animation */
+        .groucho-nose {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 60px;
+            z-index: 999;
+            pointer-events: none;
+            animation: snort-cycle 20s infinite;
+        }
+
+        .nose {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 40px;
+            background: #8B4513;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            border: 3px solid #654321;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .mustache {
+            position: absolute;
+            bottom: 35px;
+            right: 5px;
+            width: 50px;
+            height: 15px;
+            background: #000;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .eyebrows {
+            position: absolute;
+            bottom: 50px;
+            right: 10px;
+            width: 40px;
+            height: 8px;
+            background: #000;
+            border-radius: 50%;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .snort-effect {
+            position: absolute;
+            bottom: 15px;
+            right: 70px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 30px solid rgba(255,255,255,0.8);
+            opacity: 0;
+            animation: snort-blast 20s infinite;
+        }
+
+        @keyframes snort-cycle {
+            0%, 90% {
+                transform: translateY(0) scale(1);
+            }
+            95% {
+                transform: translateY(-10px) scale(1.1);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes snort-blast {
+            0%, 90% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            92% {
+                opacity: 1;
+                transform: scale(1) rotate(-15deg);
+            }
+            98% {
+                opacity: 0;
+                transform: scale(2) rotate(-30deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 3rem;
@@ -525,6 +615,14 @@
 <body>
     <div class="snow-container" id="snowContainer"></div>
     <div class="snow-pile" id="snowPile"></div>
+    
+    <!-- Groucho Marx Nose -->
+    <div class="groucho-nose">
+        <div class="eyebrows"></div>
+        <div class="mustache"></div>
+        <div class="nose"></div>
+        <div class="snort-effect"></div>
+    </div>
     <div class="container">
         <header>
             <div class="logo-image-container" onclick="createSnowfall()">
@@ -651,6 +749,7 @@
         let snowLevel = 0;
         let snortInterval;
         let snowPiles = [];
+        let snortTimer = null;
 
         function createSnowfall() {
             const snowContainer = document.getElementById('snowContainer');
@@ -716,19 +815,70 @@
             snowPile.style.left = x + 'px';
             snowPile.style.width = '20px';
             snowPile.style.height = '20px';
-            snowPile.style.background = 'radial-gradient(ellipse 20px 15px at center bottom, white 0%, transparent 70%)';
+            snowPile.style.fontSize = '16px';
+            snowPile.style.color = 'white';
+            snowPile.style.textShadow = '2px 2px 0px #000';
             snowPile.style.pointerEvents = 'none';
             snowPile.style.zIndex = '998';
             snowPile.style.transform = 'translateY(0)';
             snowPile.style.transition = 'transform 0.3s ease';
             
+            // Use the same snowflake characters as falling snow
+            const snowflakes = ['❄', '❅', '❆', '•', '·'];
+            snowPile.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+            
             document.body.appendChild(snowPile);
             snowPiles.push(snowPile);
+            
+            // Start the snorting timer when the first pile forms
+            if (snowPiles.length === 1) {
+                startSnorting();
+            }
             
             // Animate the pile growing
             setTimeout(() => {
                 snowPile.style.transform = 'translateY(-' + (Math.random() * 15 + 5) + 'px)';
             }, 10);
+        }
+        
+        function startSnorting() {
+            if (snortTimer) {
+                clearTimeout(snortTimer);
+            }
+            
+            snortTimer = setTimeout(() => {
+                // 20% chance to snort
+                if (Math.random() < 0.2) {
+                    snortSnow();
+                }
+                
+                // Continue the cycle if there are still snow piles
+                if (snowPiles.length > 0) {
+                    startSnorting();
+                }
+            }, 10000); // Check every 10 seconds
+        }
+        
+        function snortSnow() {
+            // Remove all snow piles with a snorting animation
+            snowPiles.forEach((pile, index) => {
+                setTimeout(() => {
+                    if (pile && pile.parentNode) {
+                        pile.style.transition = 'all 0.8s ease-out';
+                        pile.style.transform = 'translateY(-100px) scale(0.5) rotate(360deg)';
+                        pile.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            if (pile.parentNode) {
+                                pile.parentNode.removeChild(pile);
+                            }
+                        }, 800);
+                    }
+                }, index * 50); // Stagger the removal
+            });
+            
+            // Clear the array
+            snowPiles = [];
         }
     </script>
 </body>
