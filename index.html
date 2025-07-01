@@ -56,31 +56,26 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            position: relative;
         }
 
         .logo span {
             position: relative;
             display: inline-block;
-            background: #000;
-            color: #ffeb3b;
-            padding: 8px 4px 12px 4px;
-            border: 3px solid #000;
-            border-radius: 0 0 6px 6px;
+            color: #000;
+            font-weight: 900;
             margin: 0 2px;
             transition: transform 0.2s ease;
         }
 
         .logo span::before {
-            content: '';
+            content: attr(data-letter);
             position: absolute;
-            top: -6px;
-            left: -3px;
-            right: -3px;
-            height: 10px;
-            background: linear-gradient(90deg, #ffeb3b 0%, #ffc107 50%, #ffeb3b 100%);
-            border: 3px solid #000;
-            border-radius: 6px 6px 0 0;
-            z-index: -1;
+            top: 0;
+            left: 0;
+            color: #ffeb3b;
+            clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+            z-index: 1;
         }
 
         .logo span:hover {
@@ -340,6 +335,55 @@
             z-index: 999;
         }
 
+        .snow-buildup {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(to top, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 100%);
+            pointer-events: none;
+            z-index: 998;
+            transition: height 0.5s ease;
+        }
+
+        .nose {
+            position: fixed;
+            bottom: 0;
+            left: -100px;
+            width: 80px;
+            height: 40px;
+            background: #ff6b6b;
+            border-radius: 50px 50px 0 0;
+            pointer-events: none;
+            z-index: 997;
+            animation: snort 3s ease-in-out infinite;
+            animation-delay: 20s;
+        }
+
+        .nose::before {
+            content: '👃';
+            position: absolute;
+            top: 5px;
+            left: 20px;
+            font-size: 20px;
+        }
+
+        @keyframes snort {
+            0% {
+                left: -100px;
+                transform: scale(1);
+            }
+            50% {
+                left: calc(100% + 100px);
+                transform: scale(1.2);
+            }
+            100% {
+                left: calc(100% + 100px);
+                transform: scale(1);
+            }
+        }
+
         @media (max-width: 768px) {
             .logo {
                 font-size: 2.5rem;
@@ -348,8 +392,17 @@
             }
 
             .logo span {
-                padding: 6px 3px 8px 3px;
                 margin: 0 1px;
+            }
+
+            .nose {
+                width: 60px;
+                height: 30px;
+            }
+
+            .nose::before {
+                font-size: 16px;
+                left: 15px;
             }
 
             .hero h1 {
@@ -409,20 +462,22 @@
 </head>
 <body>
     <div class="snow-container" id="snowContainer"></div>
+    <div class="snow-buildup" id="snowBuildup"></div>
+    <div class="nose" id="nose"></div>
     <div class="container">
         <header>
             <div class="logo" onclick="createSnowfall()">
-                <span>T</span>
-                <span>I</span>
-                <span>N</span>
-                <span>Y</span>
-                <span>&nbsp;</span>
-                <span>T</span>
-                <span>O</span>
-                <span>T</span>
-                <span>E</span>
-                <span>S</span>
-                <span>™</span>
+                <span data-letter="T">T</span>
+                <span data-letter="I">I</span>
+                <span data-letter="N">N</span>
+                <span data-letter="Y">Y</span>
+                <span data-letter=" ">&nbsp;</span>
+                <span data-letter="T">T</span>
+                <span data-letter="O">O</span>
+                <span data-letter="T">T</span>
+                <span data-letter="E">E</span>
+                <span data-letter="S">S</span>
+                <span data-letter="™">™</span>
             </div>
             <div class="tagline">Because Your Containers Are Too Big</div>
         </header>
@@ -527,6 +582,9 @@
             event.target.classList.add('active');
         }
 
+        let snowLevel = 0;
+        let snortInterval;
+
         function createSnowfall() {
             const snowContainer = document.getElementById('snowContainer');
             const snowflakes = ['❄', '❅', '❆', '•', '·'];
@@ -543,8 +601,9 @@
                     
                     snowContainer.appendChild(snowflake);
                     
-                    // Remove snowflake after animation
+                    // Add to snow buildup when snowflake reaches bottom
                     setTimeout(() => {
+                        addSnowBuildup();
                         if (snowflake.parentNode) {
                             snowflake.parentNode.removeChild(snowflake);
                         }
@@ -552,6 +611,37 @@
                 }, i * 100);
             }
         }
+
+        function addSnowBuildup() {
+            snowLevel += 2;
+            const snowBuildup = document.getElementById('snowBuildup');
+            snowBuildup.style.height = Math.min(snowLevel, 100) + 'px';
+        }
+
+        function snortSnow() {
+            const nose = document.getElementById('nose');
+            const snowBuildup = document.getElementById('snowBuildup');
+            
+            // Reset snow level
+            snowLevel = 0;
+            snowBuildup.style.height = '0px';
+            
+            // Trigger nose animation
+            nose.style.animation = 'none';
+            setTimeout(() => {
+                nose.style.animation = 'snort 3s ease-in-out';
+            }, 10);
+        }
+
+        // Start the snort cycle
+        function startSnortCycle() {
+            snortInterval = setInterval(snortSnow, 20000); // Every 20 seconds
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            startSnortCycle();
+        });
     </script>
 </body>
 </html>
