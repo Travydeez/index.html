@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiny Totes™ - Because Big Bags Are So 2023</title>
+    <title>Tiny Totes™</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Righteous:wght@400&family=Archivo+Black:wght@400&family=Anton:wght@400&family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -305,8 +305,6 @@
             pointer-events: none;
             z-index: 1000;
             transition: transform 0.1s ease-out;
-            filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 16px #ffeb3b);
-            box-shadow: 0 0 16px 4px #fff, 0 0 32px 8px #ffeb3b;
         }
 
         .snow-container {
@@ -350,196 +348,8 @@
         }
 
         .snow-pile-flake {
-            box-shadow: 0 -2px 8px rgba(255,255,255,0.4), 0 0 16px 4px #fff, 0 0 32px 8px #ffeb3b;
+            box-shadow: 0 -2px 8px rgba(255,255,255,0.4);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 16px #ffeb3b);
-        }
-
-        .nose {
-            position: fixed;
-            bottom: 0;
-            left: calc(100% + 300px);
-            width: 240px;
-            height: 120px;
-            pointer-events: none;
-            z-index: 997;
-            animation: snort 3s ease-in-out infinite;
-            animation-delay: 20s;
-        }
-
-        .nose-body {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 240px;
-            height: 120px;
-            background: #ff6b6b;
-            border-radius: 120px 120px 0 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            animation: noseWiggle 0.5s ease-in-out infinite alternate;
-        }
-
-        .nose-bridge {
-            position: absolute;
-            top: 15px;
-            left: 50px;
-            width: 140px;
-            height: 90px;
-            background: #ff6b6b;
-            border-radius: 70px;
-            border: 4px solid #e55a5a;
-            animation: noseWiggle 0.3s ease-in-out infinite alternate-reverse;
-        }
-
-        .nose-tip {
-            position: absolute;
-            top: 35px;
-            left: 70px;
-            width: 100px;
-            height: 50px;
-            background: #e55a5a;
-            border-radius: 50px;
-            border: 3px solid #d44a4a;
-            animation: noseWiggle 0.4s ease-in-out infinite alternate;
-        }
-
-        .nose-nostrils {
-            position: absolute;
-            top: 45px;
-            left: 85px;
-            width: 70px;
-            height: 30px;
-            background: #d44a4a;
-            border-radius: 15px;
-            animation: noseWiggle 0.2s ease-in-out infinite alternate;
-        }
-
-        .nose-nostrils::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 10px;
-            width: 20px;
-            height: 20px;
-            background: #000;
-            border-radius: 50%;
-        }
-
-        .nose-nostrils::after {
-            content: '';
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            width: 20px;
-            height: 20px;
-            background: #000;
-            border-radius: 50%;
-        }
-
-        .mustache {
-            position: absolute;
-            top: 5px;
-            left: 30px;
-            width: 180px;
-            height: 40px;
-            background: #2c1810;
-            border-radius: 20px;
-            animation: mustacheWiggle 0.8s ease-in-out infinite alternate;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .mustache::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: 15px;
-            width: 150px;
-            height: 50px;
-            background: #2c1810;
-            border-radius: 25px;
-            animation: mustacheWiggle 0.9s ease-in-out infinite alternate-reverse;
-        }
-
-        .mustache::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 25px;
-            width: 130px;
-            height: 35px;
-            background: #1a0f0a;
-            border-radius: 17px;
-            animation: mustacheWiggle 1s ease-in-out infinite alternate;
-        }
-
-        .eyebrows {
-            position: absolute;
-            top: -15px;
-            left: 40px;
-            width: 160px;
-            height: 25px;
-            background: #2c1810;
-            border-radius: 12px;
-            animation: eyebrowWiggle 0.7s ease-in-out infinite alternate;
-        }
-
-        .eyebrows::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: 20px;
-            width: 120px;
-            height: 30px;
-            background: #2c1810;
-            border-radius: 15px;
-            animation: eyebrowWiggle 0.6s ease-in-out infinite alternate-reverse;
-        }
-
-        @keyframes noseWiggle {
-            0% { transform: rotate(-2deg); }
-            100% { transform: rotate(2deg); }
-        }
-
-        @keyframes mustacheWiggle {
-            0% { transform: rotate(-1deg) scale(1); }
-            100% { transform: rotate(1deg) scale(1.02); }
-        }
-
-        @keyframes eyebrowWiggle {
-            0% { transform: rotate(-0.5deg) translateY(0px); }
-            100% { transform: rotate(0.5deg) translateY(-2px); }
-        }
-
-        @keyframes snort {
-            0% {
-                left: calc(100% + 300px);
-                transform: scale(1);
-            }
-            50% {
-                left: -300px;
-                transform: scale(1.2);
-            }
-            100% {
-                left: -300px;
-                transform: scale(1);
-            }
-        }
-
-        @media (max-width: 768px) {
-            @keyframes snort {
-                0% {
-                    left: calc(100% + 180px);
-                    transform: scale(1);
-                }
-                50% {
-                    left: -180px;
-                    transform: scale(1.2);
-                }
-                100% {
-                    left: -180px;
-                    transform: scale(1);
-                }
-            }
         }
 
         @media (max-width: 768px) {
@@ -552,90 +362,6 @@
             .logo span {
                 font-size: 3.5rem;
                 margin: 0 1px;
-            }
-
-            .nose {
-                width: 180px;
-                height: 90px;
-                left: calc(100% + 180px);
-            }
-
-            .nose-body {
-                width: 180px;
-                height: 90px;
-                border-radius: 90px 90px 0 0;
-            }
-
-            .nose-bridge {
-                top: 15px;
-                left: 45px;
-                width: 90px;
-                height: 60px;
-                border-radius: 45px;
-            }
-
-            .nose-tip {
-                top: 30px;
-                left: 60px;
-                width: 60px;
-                height: 30px;
-                border-radius: 30px;
-            }
-
-            .mustache {
-                top: 4px;
-                left: 23px;
-                width: 135px;
-                height: 30px;
-            }
-
-            .mustache::before {
-                top: -6px;
-                left: 11px;
-                width: 113px;
-                height: 38px;
-            }
-
-            .mustache::after {
-                top: -4px;
-                left: 19px;
-                width: 98px;
-                height: 26px;
-            }
-
-            .eyebrows {
-                top: -11px;
-                left: 30px;
-                width: 120px;
-                height: 19px;
-            }
-
-            .eyebrows::before {
-                top: -2px;
-                left: 15px;
-                width: 90px;
-                height: 23px;
-            }
-
-            .nose-nostrils {
-                top: 34px;
-                left: 64px;
-                width: 53px;
-                height: 23px;
-            }
-
-            .nose-nostrils::before {
-                top: 4px;
-                left: 8px;
-                width: 15px;
-                height: 15px;
-            }
-
-            .nose-nostrils::after {
-                top: 4px;
-                right: 8px;
-                width: 15px;
-                height: 15px;
             }
 
             .hero h1 {
@@ -696,14 +422,6 @@
 <body>
     <div class="snow-container" id="snowContainer"></div>
     <div class="snow-pile" id="snowPile"></div>
-    <div class="nose" id="nose">
-        <div class="eyebrows"></div>
-        <div class="mustache"></div>
-        <div class="nose-body"></div>
-        <div class="nose-bridge"></div>
-        <div class="nose-tip"></div>
-        <div class="nose-nostrils"></div>
-    </div>
     <div class="container">
         <header>
             <div class="logo" onclick="createSnowfall()">
@@ -904,69 +622,6 @@
                 snowPile.style.transform = 'translateY(-' + (Math.random() * 15 + 5) + 'px)';
             }, 10);
         }
-
-        function snortSnow() {
-            const nose = document.getElementById('nose');
-            
-            // Trigger nose animation
-            nose.style.animation = 'none';
-            setTimeout(() => {
-                nose.style.animation = 'snort 3s ease-in-out';
-                
-                // Start erasing flakes as nose moves
-                setTimeout(() => {
-                    eraseFlakesAsNosePasses();
-                }, 1500); // Start erasing at midpoint of animation
-            }, 10);
-        }
-
-        function eraseFlakesAsNosePasses() {
-            const nose = document.getElementById('nose');
-            const noseRect = nose.getBoundingClientRect();
-            const noseLeft = noseRect.left;
-            const noseRight = noseRect.right;
-            
-            // Erase flakes that are under the nose
-            snowPiles.forEach((pile, index) => {
-                const pileRect = pile.getBoundingClientRect();
-                const pileLeft = pileRect.left;
-                const pileRight = pileRect.right;
-                
-                // Check if pile is under the nose
-                if (pileLeft < noseRight && pileRight > noseLeft) {
-                    pile.style.transform = 'translateY(-50px) scale(0.1)';
-                    pile.style.opacity = '0';
-                    setTimeout(() => {
-                        if (pile.parentNode) {
-                            pile.parentNode.removeChild(pile);
-                        }
-                    }, 300);
-                }
-            });
-            
-            // Continue checking until animation is complete
-            if (noseLeft > -200) {
-                requestAnimationFrame(eraseFlakesAsNosePasses);
-            } else {
-                // Clear remaining piles
-                snowPiles.forEach(pile => {
-                    if (pile.parentNode) {
-                        pile.parentNode.removeChild(pile);
-                    }
-                });
-                snowPiles = [];
-            }
-        }
-
-        // Start the snort cycle
-        function startSnortCycle() {
-            snortInterval = setInterval(snortSnow, 20000); // Every 20 seconds
-        }
-
-        // Initialize when page loads
-        window.addEventListener('load', () => {
-            startSnortCycle();
-        });
     </script>
 </body>
 </html>
