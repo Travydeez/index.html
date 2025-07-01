@@ -28,6 +28,143 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Animated Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 235, 59, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(34, 34, 34, 0.05) 0%, transparent 50%);
+  animation: backgroundShift 20s ease-in-out infinite;
+}
+
+/* Floating Geometric Shapes */
+.floating-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+  opacity: 0.1;
+  animation: float 15s ease-in-out infinite;
+}
+
+.shape:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  width: 60px;
+  height: 60px;
+  background: #222;
+  border-radius: 50%;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.shape:nth-child(2) {
+  top: 20%;
+  right: 15%;
+  width: 40px;
+  height: 40px;
+  background: #ffeb3b;
+  transform: rotate(45deg);
+  animation-delay: 2s;
+  animation-duration: 20s;
+}
+
+.shape:nth-child(3) {
+  bottom: 30%;
+  left: 20%;
+  width: 50px;
+  height: 50px;
+  background: #ffc107;
+  border-radius: 50%;
+  animation-delay: 4s;
+  animation-duration: 16s;
+}
+
+.shape:nth-child(4) {
+  bottom: 20%;
+  right: 25%;
+  width: 35px;
+  height: 35px;
+  background: #222;
+  transform: rotate(45deg);
+  animation-delay: 6s;
+  animation-duration: 22s;
+}
+
+.shape:nth-child(5) {
+  top: 60%;
+  left: 5%;
+  width: 45px;
+  height: 45px;
+  background: #ffeb3b;
+  border-radius: 50%;
+  animation-delay: 8s;
+  animation-duration: 19s;
+}
+
+.shape:nth-child(6) {
+  top: 40%;
+  right: 5%;
+  width: 30px;
+  height: 30px;
+  background: #ffc107;
+  transform: rotate(45deg);
+  animation-delay: 10s;
+  animation-duration: 17s;
+}
+
+/* Background Animation */
+@keyframes backgroundShift {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-20px) rotate(90deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+    opacity: 0.1;
+  }
+  75% {
+    transform: translateY(-30px) rotate(270deg);
+    opacity: 0.15;
+  }
 }
 
 /* Container for content */
