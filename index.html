@@ -454,6 +454,96 @@
                 transform: translate(-50%, -50%) perspective(200px) rotateY(-28deg) scaleY(1.18) skewY(0deg);
             }
         }
+
+        .quantum-price-tag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 3.2rem;
+            font-family: 'Fredoka One', 'Archivo Black', 'Arial Black', sans-serif;
+            font-weight: 900;
+            margin-bottom: 18px;
+            position: relative;
+            height: 3.5em;
+        }
+        .infinite-glitch, .free-glitch {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            user-select: none;
+            text-shadow: 0 0 8px #fff, 2px 2px 0 #ffeb3b, -2px -2px 0 #004dff;
+            animation: quantum-glitch 1.1s infinite steps(2);
+        }
+        .infinite-glitch {
+            color: #008026;
+            z-index: 2;
+            animation-delay: 0s;
+        }
+        .free-glitch {
+            color: #e40303;
+            z-index: 1;
+            animation-delay: 0.55s;
+        }
+        @keyframes quantum-glitch {
+            0% {
+                opacity: 1;
+                filter: none;
+                transform: translate(-50%, -50%) skewX(0deg) scale(1);
+            }
+            10% {
+                opacity: 0.7;
+                filter: blur(1px) hue-rotate(30deg);
+                transform: translate(-48%, -52%) skewX(-8deg) scale(1.05);
+            }
+            20% {
+                opacity: 1;
+                filter: none;
+                transform: translate(-50%, -50%) skewX(0deg) scale(1);
+            }
+            30% {
+                opacity: 0.6;
+                filter: blur(2px) hue-rotate(-30deg);
+                transform: translate(-52%, -48%) skewX(8deg) scale(0.97);
+            }
+            40% {
+                opacity: 1;
+                filter: none;
+                transform: translate(-50%, -50%) skewX(0deg) scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                filter: blur(1.5px) hue-rotate(60deg);
+                transform: translate(-51%, -49%) skewX(-5deg) scale(1.08);
+            }
+            60% {
+                opacity: 1;
+                filter: none;
+                transform: translate(-50%, -50%) skewX(0deg) scale(1);
+            }
+            70% {
+                opacity: 0.5;
+                filter: blur(2.5px) hue-rotate(-60deg);
+                transform: translate(-49%, -51%) skewX(10deg) scale(0.93);
+            }
+            80% {
+                opacity: 1;
+                filter: none;
+                transform: translate(-50%, -50%) skewX(0deg) scale(1);
+            }
+            90% {
+                opacity: 0.7;
+                filter: blur(1px) hue-rotate(30deg);
+                transform: translate(-50%, -50%) skewX(-8deg) scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                filter: none;
+                transform: translate(-50%, -50%) skewX(0deg) scale(1);
+            }
+        }
     </style>
 </head>
 <body>
@@ -552,7 +642,10 @@
 
             <section class="absurd-section">
                 <h2>COMING SOON!</h2>
-                <div class="price-tag">$199.99</div>
+                <div class="quantum-price-tag">
+                  <span class="infinite-glitch">∞</span>
+                  <span class="free-glitch">FREE</span>
+                </div>
                 <p>Quantum Totes - Exists in multiple sizes simultaneously! <span style="color:#008026;font-weight:bold;">infinite.</span> <span style="color:#004dff;font-weight:bold;">infinite.</span> <span style="color:#e40303;font-weight:bold;">free.</span></p>
                 <a href="#" class="cta-button">PRE-ORDER THE QUANTUM SOLUTION!</a>
             </section>
