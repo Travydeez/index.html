@@ -64,6 +64,7 @@
             display: inline-block;
             color: #000;
             font-weight: 900;
+            font-size: 6rem;
             margin: 0 2px;
             transition: transform 0.2s ease;
         }
@@ -311,18 +312,7 @@
             text-shadow: 2px 2px 0px #000;
             pointer-events: none;
             z-index: 1000;
-            animation: snowfall linear infinite;
-        }
-
-        @keyframes snowfall {
-            0% {
-                transform: translateY(-10px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
+            transition: transform 0.1s ease-out;
         }
 
         .snow-container {
@@ -350,59 +340,106 @@
         .nose {
             position: fixed;
             bottom: 0;
-            left: -100px;
-            width: 80px;
-            height: 40px;
+            left: -300px;
+            width: 240px;
+            height: 120px;
             background: #ff6b6b;
-            border-radius: 50px 50px 0 0;
+            border-radius: 120px 120px 0 0;
             pointer-events: none;
             z-index: 997;
             animation: snort 3s ease-in-out infinite;
             animation-delay: 20s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .nose::before {
-            content: '👃';
+            content: '';
             position: absolute;
-            top: 5px;
-            left: 20px;
-            font-size: 20px;
+            top: 20px;
+            left: 60px;
+            width: 120px;
+            height: 80px;
+            background: #ff6b6b;
+            border-radius: 60px;
+            border: 4px solid #e55a5a;
+        }
+
+        .nose::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 80px;
+            width: 80px;
+            height: 40px;
+            background: #e55a5a;
+            border-radius: 40px;
+            border: 3px solid #d44a4a;
         }
 
         @keyframes snort {
             0% {
-                left: -100px;
+                left: -300px;
                 transform: scale(1);
             }
             50% {
-                left: calc(100% + 100px);
+                left: calc(100% + 300px);
                 transform: scale(1.2);
             }
             100% {
-                left: calc(100% + 100px);
+                left: calc(100% + 300px);
                 transform: scale(1);
             }
         }
 
         @media (max-width: 768px) {
+            @keyframes snort {
+                0% {
+                    left: -180px;
+                    transform: scale(1);
+                }
+                50% {
+                    left: calc(100% + 180px);
+                    transform: scale(1.2);
+                }
+                100% {
+                    left: calc(100% + 180px);
+                    transform: scale(1);
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
             .logo {
-                font-size: 2.5rem;
+                font-size: 3.5rem;
                 letter-spacing: 2px;
                 gap: 4px;
             }
 
             .logo span {
+                font-size: 3.5rem;
                 margin: 0 1px;
             }
 
             .nose {
-                width: 60px;
-                height: 30px;
+                width: 180px;
+                height: 90px;
+                left: -180px;
             }
 
             .nose::before {
-                font-size: 16px;
-                left: 15px;
+                top: 15px;
+                left: 45px;
+                width: 90px;
+                height: 60px;
+                border-radius: 45px;
+            }
+
+            .nose::after {
+                top: 30px;
+                left: 60px;
+                width: 60px;
+                height: 30px;
+                border-radius: 30px;
             }
 
             .hero h1 {
@@ -596,20 +633,49 @@
                     snowflake.className = 'snowflake';
                     snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
                     snowflake.style.left = Math.random() * 100 + '%';
-                    snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                    snowflake.style.animationDelay = Math.random() * 2 + 's';
+                    
+                    // Physics properties
+                    snowflake.velocityY = Math.random() * 2 + 1; // Vertical speed
+                    snowflake.velocityX = (Math.random() - 0.5) * 2; // Horizontal drift
+                    snowflake.rotation = 0;
+                    snowflake.rotationSpeed = (Math.random() - 0.5) * 10;
+                    snowflake.y = -10;
+                    snowflake.x = parseFloat(snowflake.style.left);
                     
                     snowContainer.appendChild(snowflake);
                     
-                    // Add to snow buildup when snowflake reaches bottom
-                    setTimeout(() => {
-                        addSnowBuildup();
-                        if (snowflake.parentNode) {
-                            snowflake.parentNode.removeChild(snowflake);
-                        }
-                    }, 5000);
+                    // Start physics animation
+                    animateSnowflake(snowflake);
                 }, i * 100);
             }
+        }
+
+        function animateSnowflake(snowflake) {
+            const animate = () => {
+                // Update position with physics
+                snowflake.y += snowflake.velocityY;
+                snowflake.x += snowflake.velocityX;
+                snowflake.rotation += snowflake.rotationSpeed;
+                
+                // Apply wind effect (gentle swaying)
+                snowflake.velocityX += (Math.random() - 0.5) * 0.1;
+                snowflake.velocityX = Math.max(-1, Math.min(1, snowflake.velocityX));
+                
+                // Update visual position
+                snowflake.style.transform = `translate(${snowflake.x}px, ${snowflake.y}px) rotate(${snowflake.rotation}deg)`;
+                
+                // Check if snowflake reached bottom
+                if (snowflake.y > window.innerHeight) {
+                    addSnowBuildup();
+                    if (snowflake.parentNode) {
+                        snowflake.parentNode.removeChild(snowflake);
+                    }
+                } else {
+                    requestAnimationFrame(animate);
+                }
+            };
+            
+            requestAnimationFrame(animate);
         }
 
         function addSnowBuildup() {
