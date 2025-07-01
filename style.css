@@ -41,11 +41,11 @@ body::before {
   height: 100%;
   z-index: -1;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(255, 235, 59, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(34, 34, 34, 0.1) 0%, transparent 50%);
-  background-size: 300% 300%;
-  animation: backgroundShift 12s ease-in-out infinite;
+    radial-gradient(circle at 20% 80%, rgba(255, 235, 59, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(34, 34, 34, 0.2) 0%, transparent 50%);
+  background-size: 200% 200%;
+  animation: backgroundShift 8s ease-in-out infinite;
 }
 
 /* Additional animated background layer */
@@ -73,8 +73,8 @@ body::after {
   height: 100%;
   z-index: -3;
   background: 
-    radial-gradient(ellipse 800px 400px at 50% 50%, rgba(255, 235, 59, 0.03) 0%, transparent 50%);
-  animation: waveMove 30s ease-in-out infinite;
+    radial-gradient(ellipse 800px 400px at 50% 50%, rgba(255, 235, 59, 0.1) 0%, transparent 50%);
+  animation: waveMove 20s ease-in-out infinite;
 }
 
 /* Floating Geometric Shapes */
@@ -84,16 +84,17 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 1000;
   pointer-events: none;
   overflow: hidden;
 }
 
 .shape {
   position: absolute;
-  opacity: 0.2;
+  opacity: 0.6;
   animation: float 15s ease-in-out infinite;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.3);
 }
 
 .shape:nth-child(1) {
@@ -208,19 +209,19 @@ body::after {
 @keyframes waveMove {
   0%, 100% {
     transform: scale(1) rotate(0deg);
-    opacity: 0.03;
+    opacity: 0.1;
   }
   25% {
-    transform: scale(1.2) rotate(90deg);
-    opacity: 0.06;
+    transform: scale(1.3) rotate(90deg);
+    opacity: 0.2;
   }
   50% {
-    transform: scale(0.8) rotate(180deg);
-    opacity: 0.03;
+    transform: scale(0.7) rotate(180deg);
+    opacity: 0.1;
   }
   75% {
-    transform: scale(1.1) rotate(270deg);
-    opacity: 0.06;
+    transform: scale(1.2) rotate(270deg);
+    opacity: 0.2;
   }
 }
 
@@ -228,19 +229,19 @@ body::after {
 @keyframes float {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
-    opacity: 0.2;
+    opacity: 0.6;
   }
   25% {
-    transform: translateY(-25px) rotate(90deg);
-    opacity: 0.3;
+    transform: translateY(-40px) rotate(90deg);
+    opacity: 0.8;
   }
   50% {
-    transform: translateY(-15px) rotate(180deg);
-    opacity: 0.2;
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.6;
   }
   75% {
-    transform: translateY(-35px) rotate(270deg);
-    opacity: 0.3;
+    transform: translateY(-50px) rotate(270deg);
+    opacity: 0.8;
   }
 }
 

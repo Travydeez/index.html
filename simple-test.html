@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Animation Test</title>
+    <style>
+        body {
+            background: black;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+        
+        .test-box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            margin: 20px auto;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-50px); }
+        }
+        
+        .spinning-box {
+            width: 50px;
+            height: 50px;
+            background: blue;
+            margin: 20px auto;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Animation Test</h1>
+    
+    <div class="test-box"></div>
+    <p>This red box should bounce up and down</p>
+    
+    <div class="spinning-box"></div>
+    <p>This blue box should spin around</p>
+    
+    <p><strong>If you see these boxes moving, animations work!</strong></p>
+    <p><a href="index.html" style="color: yellow;">Back to Tiny Totes</a></p>
+</body>
+</html> 

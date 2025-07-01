@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #333;
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            text-align: center;
+            padding: 50px;
+        }
+        
+        .floating-box {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: red;
+            border: 3px solid yellow;
+            animation: float 3s ease-in-out infinite;
+            z-index: 1000;
+        }
+        
+        .floating-box:nth-child(1) {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .floating-box:nth-child(2) {
+            top: 40%;
+            right: 20%;
+            animation-delay: 1s;
+        }
+        
+        .floating-box:nth-child(3) {
+            bottom: 20%;
+            left: 50%;
+            animation-delay: 2s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-50px) rotate(180deg);
+            }
+        }
+        
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.3) 0%, transparent 50%);
+            background-size: 200% 200%;
+            animation: backgroundShift 5s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes backgroundShift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="floating-box"></div>
+    <div class="floating-box"></div>
+    <div class="floating-box"></div>
+    
+    <div class="test-container">
+        <h1>🎯 Animation Test</h1>
+        <p>If you can see this page, you should see:</p>
+        <ul style="text-align: left; display: inline-block;">
+            <li>🔴 Red boxes floating around</li>
+            <li>🟢 Background colors shifting</li>
+            <li>⚡ Everything moving and rotating</li>
+        </ul>
+        <br><br>
+        <p><strong>If you see moving red boxes, animations are working!</strong></p>
+        <p><a href="index.html" style="color: yellow;">← Back to Tiny Totes</a></p>
+    </div>
+</body>
+</html> 
