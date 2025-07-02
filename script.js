@@ -184,9 +184,8 @@ function drawSnow() {
 }
 
 function snowLoop() {
-  if (!noseAnimating) {
-    updateSnow();
-  }
+  // Always update snow, even during nose animation
+  updateSnow();
   drawSnow();
   // Show cleanup button if pile is tall enough (always visible)
   let maxPile = 0;
@@ -196,18 +195,18 @@ function snowLoop() {
   }
   
   // Debug logging
-  console.log(`Pile height: ${maxPile}, Threshold: ${PILE_HEIGHT_THRESHOLD}, Landed flakes: ${landedFlakes.length}`);
+  // console.log(`Pile height: ${maxPile}, Threshold: ${PILE_HEIGHT_THRESHOLD}, Landed flakes: ${landedFlakes.length}`);
   
   if (maxPile > PILE_HEIGHT_THRESHOLD && !showCleanup) {
     showCleanup = true;
     showCleanupButton();
-    console.log('Showing cleanup button!');
+    // console.log('Showing cleanup button!');
   }
   if (maxPile <= PILE_HEIGHT_THRESHOLD && showCleanup) {
     // Hide button if pile shrinks
     document.getElementById('cleanupBtn')?.remove();
     showCleanup = false;
-    console.log('Hiding cleanup button');
+    // console.log('Hiding cleanup button');
   }
   requestAnimationFrame(snowLoop);
 }
@@ -249,9 +248,9 @@ function startCleanupAnimation() {
   nose.src = 'assets/Nose.png'; // Use the new PNG file
   nose.id = 'nose-anim';
   nose.style.position = 'fixed';
-  nose.style.left = '-180px';
+  nose.style.left = '-270px'; // start offscreen, adjusted for new width
   nose.style.bottom = '0px';
-  nose.style.width = '140px';
+  nose.style.width = '210px'; // 50% larger
   nose.style.zIndex = '10001';
   nose.style.transition = 'none';
   nose.style.pointerEvents = 'none';
@@ -271,10 +270,10 @@ function startCleanupAnimation() {
   let duration = 4000; // 4 seconds
   let bobbing = true;
   let residueParticles = [];
-  let nostrilOffsetX = 70; // px from left of nose image
-  let nostrilOffsetY = 90; // px from top of nose image
-  let noseWidth = 140;
-  let noseHeight = 140;
+  let nostrilOffsetX = 105; // px from left of nose image (50% more)
+  let nostrilOffsetY = 135; // px from top of nose image (50% more)
+  let noseWidth = 210;
+  let noseHeight = 210;
 
   function animateNose(ts) {
     if (!start) start = ts;
@@ -298,7 +297,7 @@ function startCleanupAnimation() {
       let dx = nostrilX - f.x;
       let dy = nostrilY - f.y;
       let dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 100) {
+      if (dist < 60) { // suction radius reduced from 100 to 60
         // Easing pull
         f.x += dx * 0.18;
         f.y += dy * 0.18;
@@ -323,7 +322,7 @@ function startCleanupAnimation() {
     } else {
       // End: fade out nose, residue, reset
       nose.style.transition = 'left 0.5s';
-      nose.style.left = window.innerWidth + 200 + 'px';
+      nose.style.left = window.innerWidth + 300 + 'px';
       setTimeout(() => {
         nose.remove();
         document.getElementById('cleanupBtn')?.remove();
